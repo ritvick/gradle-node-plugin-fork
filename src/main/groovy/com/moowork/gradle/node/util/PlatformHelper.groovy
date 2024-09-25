@@ -50,12 +50,22 @@ class PlatformHelper
             return "sunos"
         }
 
+        if ( name.contains( "aix" ) )
+        {
+            return "aix"
+        }
+
         throw new IllegalArgumentException( "Unsupported OS: " + name )
     }
 
     public String getOsArch()
     {
         final String arch = property( "os.arch" ).toLowerCase()
+        // Adding support for AIX on on ppc64
+        if ( arch.contains( "ppc64" ) )
+        {
+            return "ppc64"
+        }
         if ( arch.contains( "64" ) )
         {
             return "x64"
